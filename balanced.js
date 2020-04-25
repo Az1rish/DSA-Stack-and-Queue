@@ -84,7 +84,7 @@ function isBalancedTotalWithQuotes(s) {
         if (skip === true && (s[i] === "'" || s[i] === '"')) {
             skip = false;
         }
-        if (skip = false) {
+        if (skip === false) {
             if (s[i] === "(" || s[i] === '[' || s[i] === '{') {
                 stack.push(s[i]);
                 index = i;
