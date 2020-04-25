@@ -19,11 +19,14 @@ function sort(stack) {
     let tempStack = new Stack();
     while (stack.top) {
         let temp = stack.pop();
-        // console.log('temp', temp);
-        while(tempStack.top && tempStack.top.value > temp) {
-            stack.push(tempStack.pop());
+        if (tempStack.top <= temp) {
+            tempStack.push(temp);
+        } else {
+            while (temp < tempStack.top) {
+                stack.push(tempStack.pop());
+            }
+            tempStack.push(temp);
         }
-        tempStack.push(temp);
     }
     return tempStack;
 }
