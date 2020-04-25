@@ -83,9 +83,13 @@ function isBalancedTotalWithQuotes(s) {
     for (let i = 0; i < s.length; i++) {
         if (s[i] === "'" || s[i] === '"') {
             let flag = s[i];
+            stack.push(flag);
             for (let j = index + 1; j < s.length; j++) {
                 if (s[j] === flag) {
                     i = j;
+                    stack.pop();     
+                } else {
+                    return `false at ${i}`;
                 }
             }
         } else if (s[i] === "(" || s[i] === '[' || s[i] === '{') {
@@ -106,5 +110,11 @@ function isBalancedTotalWithQuotes(s) {
     }
     return true;
 }
-// true
+// true, false, true, false, false, true, false
 console.log(isBalancedTotalWithQuotes("([{}])'[][[['()"));
+console.log(isBalancedTotalWithQuotes("([{}])'[][[[()"));
+console.log(isBalancedTotalWithQuotes(`([{}])'[]"[[['()`));
+console.log(isBalancedTotalWithQuotes(`([{}])"[][[['()`));
+console.log(isBalancedTotalWithQuotes("([{}])'[][[['({)"));
+console.log(isBalancedTotalWithQuotes("'([{}])[][[[()'"));
+console.log(isBalancedTotalWithQuotes(`([{}]")'[][[['()`));
