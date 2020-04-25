@@ -9,7 +9,8 @@ function is_palindrome(s) {
     for (let i = 0; i < mid; i++) {
         stack.push(s[i]);
     }
-
+    
+    // check if len is even, if odd omit middle letter in palindrome check (mid + 1)
     if (len % 2 !== 0) {
         for (let i = mid + 1; i < len; i++) {
             let checkLetter = stack.pop();
