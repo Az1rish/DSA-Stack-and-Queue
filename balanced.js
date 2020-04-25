@@ -7,15 +7,15 @@ function isBalanced(s) {
     }
     let index;
     for (let i = 0; i < s.length; i++) {
-        if (s[i] === "(") {
-            stack.push(s[i]);
+        if (curr === "(") {
+            stack.push(curr);
             index = i;
-        } else if (s[i] === ")") {
+        } else if (curr === ")") {
             if (!stack.top) {
                 return `false at index ${i}`;
             }
             let last = stack.pop();
-            if (s[i] !== map[last]) {
+            if (curr !== map[last]) {
                 return `false at index ${i}`;
             }
         }
@@ -42,15 +42,15 @@ function isBalancedTotal(s) {
     }
     let index;
     for (let i = 0; i < s.length; i++) {
-        if (s[i] === "(" || s[i] === '[' || s[i] === '{') {
-            stack.push(s[i]);
+        if (curr === "(" || curr === '[' || curr === '{') {
+            stack.push(curr);
             index = i;
-        } else if (s[i] === ")" || s[i] === ']' || s[i] === '}') {
+        } else if (curr === ")" || curr === ']' || curr === '}') {
             if (!stack.top) {
                 return `false at index ${i}`;
             }
             let last = stack.pop();
-            if (s[i] !== map[last]) {
+            if (curr !== map[last]) {
                 return `false at index ${i}`;
             }
         }
@@ -76,39 +76,44 @@ function isBalancedTotalWithQuotes(s) {
         '{': '}'
     };
     let index;
-    let skip = false;
+    console.log('s', s.length);
     for (let i = 0; i < s.length; i++) {
-        if (s[i] === "'" || s[i] === '"') {
-            skip = true;
+        const curr = s[i];
+        if (curr === "'" || curr === '"') {
+            for (let j = i + 1; j < s.length; j++) {
+                if (s[j] !== curr) {
+                    continue;
+                }
+                i = j;
+                break;
+            }
+            // console.log('i', i);
         }
-        if (skip === true && (s[i] === "'" || s[i] === '"')) {
-            skip = false;
-        }
-        if (skip === false) {
-            if (s[i] === "(" || s[i] === '[' || s[i] === '{') {
-                stack.push(s[i]);
+
+        if (curr === "(" || curr === '[' || curr === '{') {
+                stack.push(curr);
                 index = i;
-            } else if (s[i] === ")" || s[i] === ']' || s[i] === '}') {
-                if (!stack.top) {
-                    return `false at index ${i} no top`;
-                }
-                let last = stack.pop();
-                if (s[i] !== map[last]) {
-                    return `false at index ${i} pop parens`;
-                }
+        } else if (curr === ")" || curr === ']' || curr === '}') {
+            if (!stack.top) {
+                return `false at index ${i} no top`;
+            }
+            let last = stack.pop();
+            if (curr !== map[last]) {
+                return `false at index ${i} pop parens`;
             }
         }
     }
+    // console.log('stack', stack);
     if (stack.top) {
         return `false at index ${index} left over`;
     }
     return true;
 }
 // true, false, true, false, false, true, false
-console.log(isBalancedTotalWithQuotes("([{}])'[][[['()"));
-console.log(isBalancedTotalWithQuotes("([{}])'[][[[()"));
-console.log(isBalancedTotalWithQuotes(`([{}])'[]"[[['()`));
-console.log(isBalancedTotalWithQuotes(`([{}])"[][[['()`));
-console.log(isBalancedTotalWithQuotes("([{}])'[][[['({)"));
-console.log(isBalancedTotalWithQuotes("'([{}])[][[[()'"));
-console.log(isBalancedTotalWithQuotes(`([{}]")'[][[['()`));
+console.log(isBalancedTotalWithQuotes("([{}])'[][[['()")); // length = 15   true
+console.log(isBalancedTotalWithQuotes("([{}])'[][[[()")); // length = 14    false at 
+console.log(isBalancedTotalWithQuotes(`([{}])'[]"[[['()`)); // length = 16
+console.log(isBalancedTotalWithQuotes(`([{}])"[][[['()`)); // length = 15
+console.log(isBalancedTotalWithQuotes("([{}])'[][[['({)")); // length = 16
+console.log(isBalancedTotalWithQuotes("'([{}])[][[[()'")); // length = 15
+console.log(isBalancedTotalWithQuotes(`([{}]")'[][[['()`)); // length = 16
