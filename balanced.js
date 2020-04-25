@@ -82,18 +82,10 @@ function isBalancedTotalWithQuotes(s) {
     let index;
     for (let i = 0; i < s.length; i++) {
         if (s[i] === "'" || s[i] === '"') {
-            stack.push(s[i]);
-            index = i;
+            let flag = s[i];
             for (let j = index + 1; j < s.length; j++) {
-                console.log('top', stack.top);
-                if (s[j] === "'" || s[j] === '"') {
-                    // if (!stack.top) {
-                        // return `false at index ${i}`;
-                    // }
-                    let last = stack.pop();
-                    if (s[j] !== quotes[last]) {
-                        return `false at index ${i} pop quotes`;
-                    }
+                if (s[j] === flag) {
+                    i = j;
                 }
             }
         } else if (s[i] === "(" || s[i] === '[' || s[i] === '{') {
