@@ -75,33 +75,27 @@ function isBalancedTotalWithQuotes(s) {
         '[': ']',
         '{': '}'
     };
-    let quotes = {
-        "'": "'",
-        '"': '"'
-    };
     let index;
+    let skip = false;
     for (let i = 0; i < s.length; i++) {
         if (s[i] === "'" || s[i] === '"') {
-            let flag = s[i];
-            stack.push(flag);
-            for (let j = index + 1; j < s.length; j++) {
-                if (s[j] === flag) {
-                    i = j;
-                    stack.pop();     
-                } else {
-                    return `false at ${i}`;
+            skip = true;
+        }
+        if (skip === true && (s[i] === "'" || s[i] === '"')) {
+            skip = false;
+        }
+        if (skip = false) {
+            if (s[i] === "(" || s[i] === '[' || s[i] === '{') {
+                stack.push(s[i]);
+                index = i;
+            } else if (s[i] === ")" || s[i] === ']' || s[i] === '}') {
+                if (!stack.top) {
+                    return `false at index ${i} no top`;
                 }
-            }
-        } else if (s[i] === "(" || s[i] === '[' || s[i] === '{') {
-            stack.push(s[i]);
-            index = i;
-        } else if (s[i] === ")" || s[i] === ']' || s[i] === '}') {
-            if (!stack.top) {
-                return `false at index ${i} no top`;
-            }
-            let last = stack.pop();
-            if (s[i] !== map[last]) {
-                return `false at index ${i} pop parens`;
+                let last = stack.pop();
+                if (s[i] !== map[last]) {
+                    return `false at index ${i} pop parens`;
+                }
             }
         }
     }
