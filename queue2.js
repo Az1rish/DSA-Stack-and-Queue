@@ -81,3 +81,5 @@ function removeSpock(starTrekQ) {
 }
 
 console.log(removeSpock(makeStartrekQ()));
+
+module.exports = { Queue, makeStartrekQ };
