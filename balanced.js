@@ -76,12 +76,14 @@ function isBalancedTotalWithQuotes(s) {
         '{': '}'
     };
     let index;
-    console.log('s', s.length);
+    // console.log('s', s.length);
     for (let i = 0; i < s.length; i++) {
         const curr = s[i];
         if (curr === "'" || curr === '"') {
             for (let j = i + 1; j < s.length; j++) {
-                if (s[j] !== curr) {
+                if (j === s.length - 1 && s[j] !== curr) {
+                    return `false at ${i} no closing quotation mark`;
+                } else if (s[j] !== curr) {
                     continue;
                 }
                 i = j;
@@ -111,9 +113,9 @@ function isBalancedTotalWithQuotes(s) {
 }
 // true, false, true, false, false, true, false
 console.log(isBalancedTotalWithQuotes("([{}])'[][[['()")); // length = 15   true
-console.log(isBalancedTotalWithQuotes("([{}])'[][[[()")); // length = 14    false at 
-console.log(isBalancedTotalWithQuotes(`([{}])'[]"[[['()`)); // length = 16
-console.log(isBalancedTotalWithQuotes(`([{}])"[][[['()`)); // length = 15
-console.log(isBalancedTotalWithQuotes("([{}])'[][[['({)")); // length = 16
-console.log(isBalancedTotalWithQuotes("'([{}])[][[[()'")); // length = 15
-console.log(isBalancedTotalWithQuotes(`([{}]")'[][[['()`)); // length = 16
+console.log(isBalancedTotalWithQuotes("([{}])'[][[[()")); // length = 14    false at 6
+console.log(isBalancedTotalWithQuotes(`([{}])'[]"[[['()`)); // length = 16  true
+console.log(isBalancedTotalWithQuotes(`([{}])"[][[['()`)); // length = 15   false at 6
+console.log(isBalancedTotalWithQuotes("([{}])'[][[['({)")); // length = 16  false at 15
+console.log(isBalancedTotalWithQuotes("'([{}])[][[[()'")); // length = 15   true
+console.log(isBalancedTotalWithQuotes(`([{}]")'[][[['()`)); // length = 16  false at 5
