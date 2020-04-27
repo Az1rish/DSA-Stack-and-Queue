@@ -1,12 +1,5 @@
 const Stack = require('./stack');
 
-class _StackNode {
-    constructor(data, next) {
-        this.data = data;
-        this.next = next;
-    }
-}
-
 class QueueFromStacks {
     constructor() {
         this.stack1 = new Stack();
