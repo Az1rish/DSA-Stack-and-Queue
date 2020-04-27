@@ -23,13 +23,12 @@ function sort(stack) {
         let temp = stack.pop();
         // if tempStack empty or if temp is less than tempStack.top push temp to top of tempStack
         
+        // if temp is greater than tempStack.top, pop tempStack.top and push to stack, then push temp to tempStack.top
         while (tempStack.top && temp >= tempStack.top.data) {
-            // if temp is greater than tempStack.top, pop tempStack.top and push to stack, then push temp to tempStack.top
-                stack.push(tempStack.pop());
-            }
-        
-            tempStack.push(temp);
-        
+            stack.push(tempStack.pop());
+        }
+    
+        tempStack.push(temp);  
     }
     return tempStack;
 }
