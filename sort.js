@@ -16,25 +16,20 @@ function makeStack() {
 // console.log(makeStack());
 
 function sort(stack) {
+    // make new stack to store sorted nodes
     let tempStack = new Stack();
-    let count = 1;
     while (stack.top) {
+        // pop top item from stack to be compared
         let temp = stack.pop();
-        // console.log('temp', temp, count);
-        count++;
-        // console.log('temp', temp, 'tempStack.top', tempStack.top);
-        if (temp >= tempStack.top || temp >= tempStack.top.data) {
-            // console.log('greater than - temp', temp, 'stack', tempStack.top);
+        // if tempStack empty or if temp is less than tempStack.top push temp to top of tempStack
+        
+        if (!tempStack.top || temp <= tempStack.top.data) {
             tempStack.push(temp);
-            // console.log('tempStack.top', tempStack.top);
-        } else if (temp < tempStack.top) {
-            while (temp < tempStack.top) {
-                // console.log('less than - temp', temp, 'stack', tempStack.top);
-                stack.push(tempStack.pop());
-                // console.log('stack.top', stack.top);
-            }
+        } else if (temp > tempStack.top.data) {
+            // if temp is greater than tempStack.top, pop tempStack.top and push to stack, then push temp to tempStack.top
+            stack.push(tempStack.pop());
             tempStack.push(temp);
-        }
+        } 
     }
     return tempStack;
 }
@@ -48,5 +43,7 @@ function display(list) {
             curr = curr.next;
         }
 }
+// console.log('stack', display(makeStack()));
 
 display(sort(makeStack()));
+// sort(makeStack());
