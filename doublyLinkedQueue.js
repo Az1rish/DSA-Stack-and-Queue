@@ -57,4 +57,14 @@ function findFirst(queue) {
     console.log(queue.first);
 }
 
-findFirst(makeStartrekQ());
+// findFirst(makeStartrekQ());
+
+function display(queue) {
+    let curr = queue.first;
+    while (curr) {
+        console.log(curr.data);
+        curr = curr.next;
+    }
+}
+
+display(makeStartrekQ());
