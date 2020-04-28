@@ -7,6 +7,8 @@ class Stack {
     }
 
     push(data) {
+        
+        this.size++;
         if (this.top === null) {
             this.top = new _Node(data, null);
             return this.top;
@@ -14,14 +16,14 @@ class Stack {
 
         const node = new _Node(data, this.top);
         this.top = node;
-        this.size++;
     }
 
     pop() {
+        
+        this.size--;
         const node = this.top;
         this.top = node.next;
         return node.data;
-        this.size--;
     }
 
 }
