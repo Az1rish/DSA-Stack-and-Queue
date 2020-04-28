@@ -23,7 +23,7 @@ class QueueFromStacks {
             if (this.stack1.size === 0) {
                 return 'Cannot dequeue, queue is empty';
             }
-            while (this.stack1) {
+            while (this.stack1.size > 0) {
                 this.stack2.push(this.stack1.pop());
             }
         }
@@ -53,4 +53,14 @@ function main() {
     return newQueue;
 }
 
-console.log(main());
+// console.log(main());
+
+function display(list) {
+    let curr = list.top;
+        while (curr) {
+            console.log(curr.data);
+            curr = curr.next;
+        }
+}
+
+display(main().stack2);
