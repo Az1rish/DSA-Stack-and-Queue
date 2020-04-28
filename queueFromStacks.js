@@ -6,26 +6,37 @@ class QueueFromStacks {
         this.stack2 = new Stack();
     };
 
-    enqueue(value) {
-        for (let i = 0; i < this.stack2.length; i++) {
-            this.stack1.push(this.last.pop())
+    get size() {
+        let count = 0;
+        while (this.stack.top) {
+            count++;
         }
+        return count;
+    }
+
+    enqueue(value) {
         this.stack1.push(value);
     }
 
     dequeue() {
-        while (this.stack1) {
-            this.stack2.push(this.stack1.pop());
+        if (this.stack2.size === 0) {
+            if (this.stack1.size === 0) {
+                return 'Cannot dequeue, queue is empty';
+            }
+            while (this.stack1) {
+                this.stack2.push(this.stack1.pop());
+            }
         }
         return this.stack2.pop();
     }
 
     peek() {
-        if(this.stack1.length > 0) {
+        if(this.stack1.size > 0) {
             return this.stack1[0];
         }
-        return this.stack2[this.stack2.length - 1];
+        return this.stack2[this.stack2.size - 1];
     }
+
 }
 
 function main() {
