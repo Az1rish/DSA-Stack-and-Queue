@@ -6,13 +6,13 @@ class QueueFromStacks {
         this.stack2 = new Stack();
     };
 
-    get size() {
-        let count = 0;
-        while (this.stack.top) {
-            count++;
-        }
-        return count;
-    }
+    // get size() {
+        // let count = 0;
+        // while (this.stack.top) {
+            // count++;
+        // }
+        // return count;
+    // }
 
     enqueue(value) {
         this.stack1.push(value);
